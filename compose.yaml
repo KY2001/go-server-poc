@@ -1,0 +1,12 @@
+services:
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "3001:8080"
+    volumes:
+      - ./openapi:/usr/share/nginx/html/spec/
+    environment:
+      - |
+        URLS=[
+          { name: "api", url: "/spec/openapi.yaml" },
+        ]
