@@ -22,6 +22,7 @@ type Config struct {
 }
 
 type ServerConfig struct {
+	Timeout    int `default:"30"`
 	PortNumber int `default:"8000"`
 }
 

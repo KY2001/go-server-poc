@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	echoMiddle "github.com/labstack/echo/v4/middleware"
@@ -21,6 +22,9 @@ func main() {
 
 	e.Use(echoMiddle.Recover())
 	e.Use(echoMiddle.CORS())
+	e.Use(echoMiddle.TimeoutWithConfig(echoMiddle.TimeoutConfig{
+		Timeout: time.Duration(conf.Server.Timeout),
+	}))
 
 	api := e.Group("")
 	handlers := handler.NewHandlers()
