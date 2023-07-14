@@ -19,6 +19,9 @@ paths:
         '200':
           description: succeed
           content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHealthResponse'
         default:
           description: unexpected error
           content:
@@ -27,6 +30,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    GetHealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          example: ok
+          description: Server status.
     Error:
       type: object
       required:

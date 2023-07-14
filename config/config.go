@@ -24,7 +24,7 @@ type Config struct {
 
 type ServerConfig struct {
 	Timeout    time.Duration `default:"30s"`
-	PortNumber int           `default:"8000"`
+	PortNumber int           `default:"8000" split_words:"true"`
 }
 
 type DBConfig struct {

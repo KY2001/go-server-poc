@@ -14,3 +14,9 @@ type Error struct {
 	// Title Short error code or identifier.
 	Title *string `json:"title,omitempty"`
 }
+
+// GetHealthResponse defines model for GetHealthResponse.
+type GetHealthResponse struct {
+	// Status Server status.
+	Status string `json:"status"`
+}
