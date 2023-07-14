@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"time"
 
 	"github.com/kelseyhightower/envconfig"
 )
@@ -22,8 +23,8 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Timeout    int `default:"30"`
-	PortNumber int `default:"8000"`
+	Timeout    time.Duration `default:"30s"`
+	PortNumber int           `default:"8000"`
 }
 
 type DBConfig struct {
