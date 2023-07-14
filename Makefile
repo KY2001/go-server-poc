@@ -3,7 +3,7 @@ run:
 	go run server.go
 
 build: 
-	go build -ldflags '-s -w' -o bin/go-server-poc
+	go build -trimpath -ldflags '-s -w' -o bin/go-server-poc
 
 fmt:
 	go fmt ./...
