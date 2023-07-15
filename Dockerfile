@@ -1,5 +1,5 @@
 # デプロイ用コンテナに含まれるバイナリを作成するコンテナ
-FROM golang:1.20-bookworm as deploy-builder
+FROM golang:1.20 as deploy-builder
 
 WORKDIR /app
 

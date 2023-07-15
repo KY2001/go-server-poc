@@ -16,3 +16,9 @@ build-tools:
 
 compose-up:
 	docker compose up -d
+
+docker-build:
+	docker build -t go-server-poc .
+
+docker-run:
+	docker run -it -p 8000:8000 go-server-poc
