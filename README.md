@@ -2,7 +2,7 @@
 ## What is this?
 <strong>go-server-poc</strong> is a Proof of Concept (PoC) howcasing a simple web server built with [Golang](https://go.dev/). It can serve as a simple template for similar projects. The project uses [OpenAPI 3.0 (Swagger)](https://swagger.io/specification/), [oapi-codegen](https://github.com/deepmap/oapi-codegen) for schema driven development, and [echo](https://github.com/labstack/echo) as a web-framework. The PoC server is hosted on Google Cloud Run at the following endpoint: https://go-server-poc-2ra7djjztq-an.a.run.app/health.
 
-![UI](/delete_this.png) 
+![UI](delete_this/echo.png) 
 
 ## Getting Started
 ### Prerequisites
