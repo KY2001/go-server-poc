@@ -26,7 +26,7 @@ make compose-up
 Then Swagger are Install and run as docker image.
 2. Open your browser and navigate to http://localhost:3001/
 
-## Develop New Endpoints
+### Develop New Endpoints
 1. Add API definitions on `/openapi/openapi.yaml`
 2. Generate necessary Go code using [oapi-codegen](https://github.com/deepmap/oapi-codegen):
 ```
@@ -46,7 +46,7 @@ func NewHandlers() *Handler {
 }
 ```
 
-## Deploy Server on Google Cloud Run
+### Deploy on Google Cloud Run
 1. Install Google Cloud SDK on your machine following the [manual](https://cloud.google.com/sdk/docs/install-sdk?hl=ja).
 2. Build and upload the Docker image:
 ```
@@ -57,11 +57,11 @@ gcloud builds submit --tag asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}
 gcloud run deploy --image asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME} --platform managed
 ```
 
-## Note
+### Note
 - Configuration parameters are managed in /config/config.go using [envconfig](https://github.com/kelseyhightower/envconfig).
 - Useful commands are provided in the `/Makefile`.
-- golangci-lint and tests are executed every time the code is pushed to GitHub. You can view the results [here](https://github.com/KY2001/go-server-poc/actions). For more details, please refer to `.github/workflows/golangci.yaml`.
+- golangci-lint and tests are executed every time the code is pushed using [GitHub Actions](https://docs.github.com/en/actions). You can view the results [here](https://github.com/KY2001/go-server-poc/actions). For more details, please refer to `.github/workflows/golangci.yaml`.
 
-## Necessary Considerations for Actual Development
+### Necessary Considerations for Actual Development
 - Determine the type of database to use (e.g., install xxSQL locally, use a cloud DB, or utilize file systems).
 - Consider the appropriate directory structure (e.g., MVC, Clean Architecture, etc.).
