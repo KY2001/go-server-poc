@@ -57,11 +57,11 @@ gcloud builds submit --tag asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}
 gcloud run deploy --image asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME} --platform managed
 ```
 
-### Note
+## Note
 - Configuration parameters are managed in /config/config.go using [envconfig](https://github.com/kelseyhightower/envconfig).
 - Useful commands are provided in the `/Makefile`.
-- golangci-lint is executed every time the code is pushed to GitHub. See `.github/workflows/golangci.yaml` for details.
+- golangci-lint and tests are executed every time the code is pushed to GitHub. You can view the results [here](https://github.com/KY2001/go-server-poc/actions). For more details, please refer to `.github/workflows/golangci.yaml`.
 
-### Considerations for Actual Development
+## Necessary Considerations for Actual Development
 - Determine the type of database to use (e.g., install xxSQL locally, use a cloud DB, or utilize file systems).
 - Consider the appropriate directory structure (e.g., MVC, Clean Architecture, etc.).
