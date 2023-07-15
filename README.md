@@ -60,6 +60,7 @@ gcloud run deploy --image asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME} --platform ma
 ### Note
 - Configuration parameters are managed in /config/config.go using [envconfig](https://github.com/kelseyhightower/envconfig).
 - Useful commands are provided in the `/Makefile`.
+- golangci-lint is executed every time the code is pushed to GitHub. See `.github/workflows/golangci.yaml` for details.
 
 ### Considerations for Actual Development
 - Determine the type of database to use (e.g., install xxSQL locally, use a cloud DB, or utilize file systems).
