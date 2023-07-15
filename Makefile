@@ -21,4 +21,4 @@ docker-build:
 	docker build -t go-server-poc .
 
 docker-run:
-	docker run -it -p 8000:8000 go-server-poc
+	docker run -it -p 8080:8080 go-server-poc

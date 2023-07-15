@@ -31,7 +31,7 @@ func main() {
 	openapi.RegisterHandlers(api, handlers)
 
 	// Start server
-	address := getAddress(conf.Server.PortNumber)
+	address := getAddress(conf.Server.Port)
 	err := e.Start(address)
 	if err != nil {
 		e.Logger.Fatal(err)

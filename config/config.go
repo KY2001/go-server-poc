@@ -10,7 +10,7 @@ import (
 var conf Config
 
 func NewConfig() Config {
-	err := envconfig.Process("app", &conf)
+	err := envconfig.Process("", &conf)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -23,8 +23,8 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Timeout    time.Duration `default:"30s"`
-	PortNumber int           `default:"8000" split_words:"true"`
+	Timeout time.Duration `default:"30s"`
+	Port    int           `default:"8080"`
 }
 
 type DBConfig struct {

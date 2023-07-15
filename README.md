@@ -1,6 +1,6 @@
 # go-server-poc
 ## What is this?
-<strong>go-server-poc</strong> is a Proof of Concept (POC) howcasing a simple web server built with [Golang](https://go.dev/). It can serve as a simple template for similar projects. The project uses [OpenAPI 3.0 (Swagger)](https://swagger.io/specification/), [oapi-codegen](https://github.com/deepmap/oapi-codegen) for schema driven development, and [echo](https://github.com/labstack/echo) as a web-framework.
+<strong>go-server-poc</strong> is a Proof of Concept (PoC) howcasing a simple web server built with [Golang](https://go.dev/). It can serve as a simple template for similar projects. The project uses [OpenAPI 3.0 (Swagger)](https://swagger.io/specification/), [oapi-codegen](https://github.com/deepmap/oapi-codegen) for schema driven development, and [echo](https://github.com/labstack/echo) as a web-framework. The PoC server is hosted on Google Cloud Run at the following endpoint: https://go-server-poc-2ra7djjztq-an.a.run.app/health.
 
 ![UI](/delete_this.png) 
 
@@ -8,7 +8,7 @@
 ### Prerequisites
 Before you begin, ensure that Docker and Golang are installed on your machine, and binary paths are appropriately exported. This guide is based on the assumption that you are using Linux or macOS.
 
-### Start the server
+### Start the server on local
 1. Clone this repository:
 ```
 git clone https://github.com/KY2001/go-server-poc
@@ -18,7 +18,7 @@ git clone https://github.com/KY2001/go-server-poc
 make run
 ```
 
-### Host Swagger UI
+### Host Swagger UI on local
 1. To host Swagger UI, execute:
 ```
 make compose-up
@@ -44,6 +44,17 @@ func NewHandlers() *Handler {
 		GetHealthHandler: GetHealthHandler{},
 	}
 }
+```
+
+# Deploy server on Google Cloud Run
+1. Install Google Cloud SDK on your machine following the [manual](https://cloud.google.com/sdk/docs/install-sdk?hl=ja).
+2. Build and upload the Docker image:
+```
+gcloud builds submit --tag asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}
+```
+3. Deploy on Cloud Run
+```
+gcloud run deploy --image asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME} --platform managed
 ```
 
 ### Note

@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   description:
 servers:
-  - url: http://localhost:8000
+  - url: http://localhost:8080
     description: local environment
   - url: http://production.com
     description: production environment
