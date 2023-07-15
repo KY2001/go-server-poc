@@ -46,7 +46,7 @@ func NewHandlers() *Handler {
 }
 ```
 
-# Deploy server on Google Cloud Run
+## Deploy server on Google Cloud Run
 1. Install Google Cloud SDK on your machine following the [manual](https://cloud.google.com/sdk/docs/install-sdk?hl=ja).
 2. Build and upload the Docker image:
 ```
