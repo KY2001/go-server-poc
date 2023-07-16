@@ -22,10 +22,12 @@ type Config struct {
 	DB     DBConfig
 }
 
+// env: SERVER_XXX
 type ServerConfig struct {
 	Timeout time.Duration `default:"30s"`
 	Port    int           `default:"8080"`
 }
 
+// env: DB_XXX
 type DBConfig struct {
 }
