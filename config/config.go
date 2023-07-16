@@ -28,4 +28,9 @@ type ServerConfig struct {
 }
 
 type DBConfig struct {
+	DBUser                string `split_words:"true"`
+	DBPass                string `split_words:"true"`
+	DBName                string `split_words:"true"`
+	InstanceConnectonName string `split_words:"true"`
+	PrivateIP             string `split_words:"true"`
 }

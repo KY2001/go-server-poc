@@ -19,7 +19,7 @@ func TestGetHealthHandler_GetHealth(t *testing.T) {
 
 	GetHealthHandler := handler.GetHealthHandler{}
 	err := GetHealthHandler.GetHealth(ctx)
-	
+
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, rec.Code)
 	assert.JSONEq(t, `{"status": "OK"}`, rec.Body.String())
