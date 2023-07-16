@@ -22,15 +22,17 @@ type Config struct {
 	DB     DBConfig
 }
 
+// env: SERVER_XXX
 type ServerConfig struct {
 	Timeout time.Duration `default:"30s"`
 	Port    int           `default:"8080"`
 }
 
+// env: DB_XXX
 type DBConfig struct {
-	DBUser                string `split_words:"true"`
-	DBPass                string `split_words:"true"`
-	DBName                string `split_words:"true"`
-	InstanceConnectonName string `split_words:"true"`
-	PrivateIP             string `split_words:"true"`
+	User                   string `default:"root" split_words:"true"`
+	Pass                   string `split_words:"true"`
+	Name                   string `default:"go-server-poc" split_words:"true"`
+	InstanceConnectionName string `split_words:"true"`
+	PrivateIP              string `split_words:"true"`
 }

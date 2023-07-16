@@ -10,6 +10,13 @@ jobs:
         with:
           go-version: '>=1.20'
       - uses: actions/checkout@v3
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
       - run: go test ./... -coverprofile=coverage.out
+        env: # Or as an environment variable
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_INSTANCE_CONNECTION_NAME: ${{ secrets.DB_INSTANCE_CONNECTION_NAME }}
       - name: report coverage
         uses: k1LoW/octocov-action@v0

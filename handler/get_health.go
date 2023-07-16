@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/KY2001/go-server-poc/infrastructure/db/cloud-sql"
+	cloudsql "github.com/KY2001/go-server-poc/infrastructure/db/cloud-sql"
 	"github.com/KY2001/go-server-poc/openapi"
 
 	"github.com/labstack/echo/v4"

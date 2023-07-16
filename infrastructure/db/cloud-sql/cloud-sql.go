@@ -16,10 +16,10 @@ import (
 func GetConnectionPool() (*sql.DB, error) {
 	conf := config.NewConfig()
 
-	dbUser := conf.DB.DBUser                                // e.g. 'my-db-user'
-	dbPass := conf.DB.DBPass                                // e.g. 'my-db-password'
-	dbName := conf.DB.DBName                                // e.g. 'my-database'
-	instanceConnectionName := conf.DB.InstanceConnectonName // e.g. 'project:region:instance'
+	dbUser := conf.DB.User                                   // e.g. 'my-db-user'
+	dbPass := conf.DB.Pass                                   // e.g. 'my-db-password'
+	dbName := conf.DB.Name                                   // e.g. 'my-database'
+	instanceConnectionName := conf.DB.InstanceConnectionName // e.g. 'project:region:instance'
 
 	usePrivate := conf.DB.PrivateIP
 
