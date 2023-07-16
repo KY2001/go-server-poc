@@ -14,6 +14,7 @@ FROM debian:bookworm-slim as deploy
 
 RUN apt-get update
 
+COPY gcp-key.json .
 COPY --from=deploy-builder /app/app .
 
 CMD ["./app"]
