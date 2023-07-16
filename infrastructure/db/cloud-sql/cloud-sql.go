@@ -19,7 +19,7 @@ func GetConnectionPool() (*sql.DB, error) {
 	dbUser := conf.DB.DBUser                                // e.g. 'my-db-user'
 	dbPass := conf.DB.DBPass                                // e.g. 'my-db-password'
 	dbName := conf.DB.DBName                                // e.g. 'my-database'
-	instanceConnectionName := conf.DB.InstanceConnectonName                 // e.g. 'project:region:instance'
+	instanceConnectionName := conf.DB.InstanceConnectonName // e.g. 'project:region:instance'
 
 	usePrivate := conf.DB.PrivateIP
 

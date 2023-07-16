@@ -50,9 +50,9 @@ func checkDBHealth() error {
 	}
 
 	var (
-		id int
+		id        int
 		createdAt string
-		message string
+		message   string
 	)
 	selectHealth := `SELECT * FROM health;`
 	err = db.QueryRow(selectHealth).Scan(&id, &createdAt, &message)
