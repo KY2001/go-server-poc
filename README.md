@@ -33,6 +33,7 @@ Then Swagger are Install and run as docker image.
 make gen
 ```
 This command generates `/openapi/server.gen.go` and `/openapi/types.gen.go`.
+
 3. Write handlers in /handler/xxx.go and add the handler to /handler/handler.go as follows:
 ```
 type Handler struct {
