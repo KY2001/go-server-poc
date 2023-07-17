@@ -13,6 +13,7 @@ RUN go build -trimpath -ldflags '-s -w' -o app
 FROM debian:bookworm-slim as deploy
 
 RUN apt-get update
+RUN apt-get install ca-certificates openssl -y
 
 COPY --from=deploy-builder /app/app .
 
