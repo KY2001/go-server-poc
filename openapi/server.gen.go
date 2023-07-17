@@ -10,25 +10,16 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
+	// (GET /)
+	GetPing(ctx echo.Context) error
+
 	// (GET /health)
 	GetHealth(ctx echo.Context) error
-
-	// (GET /ping)
-	GetPing(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler ServerInterface
-}
-
-// GetHealth converts echo context to params.
-func (w *ServerInterfaceWrapper) GetHealth(ctx echo.Context) error {
-	var err error
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetHealth(ctx)
-	return err
 }
 
 // GetPing converts echo context to params.
@@ -37,6 +28,15 @@ func (w *ServerInterfaceWrapper) GetPing(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.GetPing(ctx)
+	return err
+}
+
+// GetHealth converts echo context to params.
+func (w *ServerInterfaceWrapper) GetHealth(ctx echo.Context) error {
+	var err error
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetHealth(ctx)
 	return err
 }
 
@@ -68,7 +68,7 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 		Handler: si,
 	}
 
+	router.GET(baseURL+"/", wrapper.GetPing)
 	router.GET(baseURL+"/health", wrapper.GetHealth)
-	router.GET(baseURL+"/ping", wrapper.GetPing)
 
 }
