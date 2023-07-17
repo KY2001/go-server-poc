@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	cloudsql "github.com/KY2001/go-server-poc/infrastructure/db/cloud-sql"
@@ -26,11 +25,10 @@ func (h *GetHealthHandler) GetHealth(ctx echo.Context) error {
 }
 
 func checkDBHealth() error {
-	db, err := cloudsql.GetConnectionPool()
+	db, err := cloudsql.GetDB()
 	if err != nil {
 		return err
 	}
-	defer db.Close()
 
 	createHealth := `CREATE TABLE IF NOT EXISTS health (
 		id SERIAL NOT NULL,
@@ -59,8 +57,6 @@ func checkDBHealth() error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Printf("Result of SELECT: id=%v, createdAt=%v, message=%v\n", id, createdAt, message)
 
 	return nil
 }
