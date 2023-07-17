@@ -9,6 +9,25 @@ servers:
   - url: http://production.com
     description: production environment
 paths:
+  /ping:
+    get:
+      description: |
+        SSIA.
+      operationId: getPing
+      parameters: []
+      responses:
+        '200':
+          description: succeed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPingResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /health:
     get:
       description: |
@@ -30,7 +49,7 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    GetHealthResponse:
+    GetPingResponse:
       type: object
       required:
         - status
@@ -39,6 +58,15 @@ components:
           type: string
           example: ok
           description: Server status.
+    GetHealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          example: ok
+          description: Server and DB status.
     Error:
       type: object
       required:

@@ -17,6 +17,12 @@ type Error struct {
 
 // GetHealthResponse defines model for GetHealthResponse.
 type GetHealthResponse struct {
+	// Status Server and DB status.
+	Status string `json:"status"`
+}
+
+// GetPingResponse defines model for GetPingResponse.
+type GetPingResponse struct {
 	// Status Server status.
 	Status string `json:"status"`
 }
