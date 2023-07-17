@@ -9,7 +9,7 @@ servers:
   - url: http://production.com
     description: production environment
 paths:
-  /ping:
+  /:
     get:
       description: |
         SSIA.
