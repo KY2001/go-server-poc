@@ -12,6 +12,21 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
+var (
+	db *sql.DB
+)
+
+func GetDB() (*sql.DB, error) {
+	if db == nil {
+		var err error
+		db, err = GetConnectionPool()
+		if err != nil {
+			return nil, err
+		}
+	}
+	return db, nil
+}
+
 // Ref: https://github.com/GoogleCloudPlatform/golang-samples/blob/main/cloudsql/mysql/database-sql/connect_connector.go
 func GetConnectionPool() (*sql.DB, error) {
 	conf := config.NewConfig()
@@ -43,5 +58,12 @@ func GetConnectionPool() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("sql.Open: %w", err)
 	}
+
+	// sql.DB の挙動を制御するパラメータ：https://please-sleep.cou929.nu/go-sql-db-connection-pool.html
+	dbPool.SetMaxOpenConns(conf.DB.MaxOpenConns)
+	dbPool.SetMaxIdleConns(conf.DB.MaxIdleConns)
+	dbPool.SetConnMaxLifetime(conf.DB.ConnMaxLifetime)
+	dbPool.SetConnMaxIdleTime(conf.DB.ConnMaxIdletime)
+
 	return dbPool, nil
 }
