@@ -20,7 +20,7 @@ func InitClient() {
 	var err error
 	db, err = GetConnectionPool()
 	if err != nil {
-		panic("Failed to connect to Cloud SQL")
+		panic(fmt.Sprintf("Failed to connect to Cloud SQL: %v", err))
 	}
 }
 

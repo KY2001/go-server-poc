@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/KY2001/go-server-poc/handler"
+	cloudsql "github.com/KY2001/go-server-poc/infrastructure/db/cloud-sql"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -16,6 +17,8 @@ func TestGetHealthHandler_GetHealth(t *testing.T) {
 
 	e := echo.New()
 	ctx := e.NewContext(req, rec)
+
+	cloudsql.InitClient()
 
 	GetHealthHandler := handler.GetHealthHandler{}
 	err := GetHealthHandler.GetHealth(ctx)
