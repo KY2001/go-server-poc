@@ -12,7 +12,7 @@ paths:
   /:
     get:
       description: |
-        SSIA.
+        Check the availability of server.
       operationId: getPing
       parameters: []
       responses:
@@ -31,7 +31,7 @@ paths:
   /health:
     get:
       description: |
-        Check the availability of server.
+        Check the availability of server and database.
       operationId: getHealth
       parameters: []
       responses:
