@@ -25,10 +25,7 @@ func (h *GetHealthHandler) GetHealth(ctx echo.Context) error {
 }
 
 func checkDBHealth() error {
-	db, err := cloudsql.GetDB()
-	if err != nil {
-		return err
-	}
+	db := cloudsql.GetClient()
 
 	createHealth := `CREATE TABLE IF NOT EXISTS health (
 		id SERIAL NOT NULL,
@@ -36,7 +33,7 @@ func checkDBHealth() error {
 		message VARCHAR(6) NOT NULL,
 		PRIMARY KEY (id)
 	);`
-	_, err = db.Exec(createHealth)
+	_, err := db.Exec(createHealth)
 	if err != nil {
 		return err
 	}

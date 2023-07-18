@@ -16,15 +16,16 @@ var (
 	db *sql.DB
 )
 
-func GetDB() (*sql.DB, error) {
-	if db == nil {
-		var err error
-		db, err = GetConnectionPool()
-		if err != nil {
-			return nil, err
-		}
+func InitClient() {
+	var err error
+	db, err = GetConnectionPool()
+	if err != nil {
+		panic("Failed to connect to Cloud SQL")
 	}
-	return db, nil
+}
+
+func GetClient() *sql.DB {
+	return db
 }
 
 // Ref: https://github.com/GoogleCloudPlatform/golang-samples/blob/main/cloudsql/mysql/database-sql/connect_connector.go
