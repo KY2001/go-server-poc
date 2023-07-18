@@ -15,6 +15,9 @@ type ServerInterface interface {
 
 	// (GET /health)
 	GetHealth(ctx echo.Context) error
+
+	// (GET /health/auth)
+	GetHealthAuth(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -37,6 +40,17 @@ func (w *ServerInterfaceWrapper) GetHealth(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.GetHealth(ctx)
+	return err
+}
+
+// GetHealthAuth converts echo context to params.
+func (w *ServerInterfaceWrapper) GetHealthAuth(ctx echo.Context) error {
+	var err error
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetHealthAuth(ctx)
 	return err
 }
 
@@ -70,5 +84,6 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 
 	router.GET(baseURL+"/", wrapper.GetPing)
 	router.GET(baseURL+"/health", wrapper.GetHealth)
+	router.GET(baseURL+"/health/auth", wrapper.GetHealthAuth)
 
 }

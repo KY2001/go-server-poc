@@ -1,0 +1,51 @@
+package middleware
+
+import (
+	"context"
+
+	"github.com/deepmap/oapi-codegen/pkg/middleware"
+	"github.com/getkin/kin-openapi/openapi3filter"
+	"github.com/labstack/echo/v4"
+
+	"github.com/KY2001/go-server-poc/infrastructure/firebase"
+	"github.com/KY2001/go-server-poc/openapi"
+)
+
+func RequestValidator() echo.MiddlewareFunc {
+	swagger, err := openapi.GetSwagger()
+	if err != nil {
+		panic("Failed to load swagger.")
+	}
+
+	return middleware.OapiRequestValidatorWithOptions(
+		swagger,
+		NewOapiRequestValidatorOptions(),
+	)
+}
+
+func NewOapiRequestValidatorOptions() *middleware.Options {
+	return &middleware.Options{
+		Options: openapi3filter.Options{
+			AuthenticationFunc: authenticationFunc(),
+		},
+	}
+}
+
+// Is called only when "security: bearerAuth: []"" is declared in openapi.yaml
+func authenticationFunc() func(c context.Context, input *openapi3filter.AuthenticationInput) error {
+	return func(c context.Context, input *openapi3filter.AuthenticationInput) error {
+		authClient := firebase.GetClient()
+
+		idToken := getTokenFromRequestHeader(input)
+		_, err := authClient.VerifyIDToken(c, idToken)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	}
+}
+
+func getTokenFromRequestHeader(input *openapi3filter.AuthenticationInput) string {
+	return input.RequestValidationInput.Request.Header.Get(echo.HeaderAuthorization)
+}

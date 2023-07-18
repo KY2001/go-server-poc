@@ -47,7 +47,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /health/auth:
+    get:
+      description: |
+        Test the availability of firebase authorization.
+      operationId: getHealthAuth
+      security:
+        - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: succeed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHealthAuthResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     GetPingResponse:
       type: object
@@ -67,6 +93,15 @@ components:
           type: string
           example: ok
           description: Server and DB status.
+    getHealthAuthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          example: ok
+          description: Auth status.
     Error:
       type: object
       required:
