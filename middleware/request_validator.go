@@ -17,6 +17,10 @@ func RequestValidator() echo.MiddlewareFunc {
 		panic("Failed to load swagger.")
 	}
 
+	// Skip validating the servers array in the swagger spec
+	// See: https://github.com/deepmap/oapi-codegen/issues/882
+	swagger.Servers = nil
+
 	return middleware.OapiRequestValidatorWithOptions(
 		swagger,
 		NewOapiRequestValidatorOptions(),
