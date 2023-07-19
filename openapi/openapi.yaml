@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:8080
     description: local environment
-  - url: http://production.com
+  - url: https://go-server-poc-2ra7djjztq-an.a.run.app
     description: production environment
 paths:
   /:
