@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"log"
 	"net"
 
 	"github.com/KY2001/go-server-poc/config"
@@ -20,11 +21,15 @@ func InitClient() {
 	var err error
 	db, err = GetConnectionPool()
 	if err != nil {
-		panic(fmt.Sprintf("Failed to connect to Cloud SQL: %v", err))
+		log.Fatalf("InitClient: Failed to connect to Cloud SQL: %v\n", err)
 	}
 }
 
 func GetClient() *sql.DB {
+	if db == nil {
+		InitClient()
+		log.Println("GetClient: DB client should be initialized when server starts.")
+	}
 	return db
 }
 
