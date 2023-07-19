@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"log"
 
 	"github.com/deepmap/oapi-codegen/pkg/middleware"
 	"github.com/getkin/kin-openapi/openapi3filter"
@@ -14,7 +15,7 @@ import (
 func RequestValidator() echo.MiddlewareFunc {
 	swagger, err := openapi.GetSwagger()
 	if err != nil {
-		panic("Failed to load swagger.")
+		log.Fatalf("RequestValidator: Failed to load swagger: %v\n", err)
 	}
 
 	// Skip validating the servers array in the swagger spec
