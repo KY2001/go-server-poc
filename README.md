@@ -62,7 +62,8 @@ gcloud run deploy --image asia.gcr.io/${GCP_PROJECT}/${IMAGE_NAME} --platform ma
 - Configuration parameters are managed in /config/config.go using [envconfig](https://github.com/kelseyhightower/envconfig).
 - Useful commands are provided in the `/Makefile`.
 - golangci-lint and tests are executed every time the code is pushed using [GitHub Actions](https://docs.github.com/en/actions). You can view the results [here](https://github.com/KY2001/go-server-poc/actions). For more details, please refer to `.github/workflows/golangci.yaml`.
-- An example implementation of a connection with Cloud SQL is available in the [cloud-sql branch](https://github.com/KY2001/go-server-poc/tree/cloud-sql).
+- An example implementation of using Cloud SQL as DB is available in the [cloud-sql branch](https://github.com/KY2001/go-server-poc/tree/cloud-sql).
+- An example implementation of using [Firebase](https://firebase.google.com/) for authentication/authorization is available in the [auth branch](https://github.com/KY2001/go-server-poc/tree/auth).
 
 ### Necessary Considerations for Actual Development
 - Determine the type of database to use (e.g., install xxSQL locally, use a cloud DB, or utilize file systems).
