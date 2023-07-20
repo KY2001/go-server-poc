@@ -11,6 +11,7 @@ import (
 
 	"github.com/KY2001/go-server-poc/config"
 	"github.com/KY2001/go-server-poc/handler"
+	cloudsql "github.com/KY2001/go-server-poc/infrastructure/db/cloud-sql"
 	"github.com/KY2001/go-server-poc/openapi"
 )
 
@@ -19,12 +20,16 @@ func main() {
 
 	e := echo.New()
 
+	// Middleware
 	e.Use(echoMiddle.Recover())
 	e.Use(echoMiddle.CORS())
 	e.Use(echoMiddle.Logger())
 	e.Use(echoMiddle.TimeoutWithConfig(echoMiddle.TimeoutConfig{
 		Timeout: conf.Server.Timeout,
 	}))
+
+	// Initialize Clients
+	cloudsql.InitClient()
 
 	api := e.Group("")
 	handlers := handler.NewHandlers()
