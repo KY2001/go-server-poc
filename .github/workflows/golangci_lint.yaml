@@ -1,10 +1,6 @@
-name: golang-ci
+name: golangci-lint
 on:
   push:
-  pull_request:
-    paths:
-      - "**.go"
-      - ".github/workflows/golangci.yaml"
 jobs:
   golangci-lint:
     name: golangci-lint
