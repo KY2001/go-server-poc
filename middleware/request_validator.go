@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"log"
+	"strings"
 
 	"github.com/deepmap/oapi-codegen/pkg/middleware"
 	"github.com/getkin/kin-openapi/openapi3filter"
@@ -10,6 +11,10 @@ import (
 
 	"github.com/KY2001/go-server-poc/infrastructure/firebase"
 	"github.com/KY2001/go-server-poc/openapi"
+)
+
+const (
+	authScheme = "Bearer "
 )
 
 func RequestValidator() echo.MiddlewareFunc {
@@ -52,5 +57,6 @@ func authenticationFunc() func(c context.Context, input *openapi3filter.Authenti
 }
 
 func getTokenFromRequestHeader(input *openapi3filter.AuthenticationInput) string {
-	return input.RequestValidationInput.Request.Header.Get(echo.HeaderAuthorization)
+	bearerToken := input.RequestValidationInput.Request.Header.Get(echo.HeaderAuthorization)
+	return strings.TrimPrefix(bearerToken, authScheme)
 }

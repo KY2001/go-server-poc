@@ -4,6 +4,10 @@
 package openapi
 
 import (
+	"fmt"
+	"net/http"
+
+	"github.com/deepmap/oapi-codegen/pkg/runtime"
 	"github.com/labstack/echo/v4"
 )
 
@@ -13,11 +17,17 @@ type ServerInterface interface {
 	// (GET /)
 	GetPing(ctx echo.Context) error
 
+	// (POST /auth/signup)
+	PostAuthSignup(ctx echo.Context, params PostAuthSignupParams) error
+
 	// (GET /health)
 	GetHealth(ctx echo.Context) error
 
 	// (GET /health/auth)
 	GetHealthAuth(ctx echo.Context) error
+
+	// (GET /user/{userId})
+	GetUser(ctx echo.Context, userId string) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -31,6 +41,33 @@ func (w *ServerInterfaceWrapper) GetPing(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.GetPing(ctx)
+	return err
+}
+
+// PostAuthSignup converts echo context to params.
+func (w *ServerInterfaceWrapper) PostAuthSignup(ctx echo.Context) error {
+	var err error
+
+	ctx.Set(BearerAuthScopes, []string{})
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params PostAuthSignupParams
+	// ------------- Required query parameter "userName" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "userName", ctx.QueryParams(), &params.UserName)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter userName: %s", err))
+	}
+
+	// ------------- Required query parameter "userId" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "userId", ctx.QueryParams(), &params.UserId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter userId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostAuthSignup(ctx, params)
 	return err
 }
 
@@ -51,6 +88,22 @@ func (w *ServerInterfaceWrapper) GetHealthAuth(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.GetHealthAuth(ctx)
+	return err
+}
+
+// GetUser converts echo context to params.
+func (w *ServerInterfaceWrapper) GetUser(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "userId" -------------
+	var userId string
+
+	err = runtime.BindStyledParameterWithLocation("simple", false, "userId", runtime.ParamLocationPath, ctx.Param("userId"), &userId)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter userId: %s", err))
+	}
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetUser(ctx, userId)
 	return err
 }
 
@@ -83,7 +136,9 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	}
 
 	router.GET(baseURL+"/", wrapper.GetPing)
+	router.POST(baseURL+"/auth/signup", wrapper.PostAuthSignup)
 	router.GET(baseURL+"/health", wrapper.GetHealth)
 	router.GET(baseURL+"/health/auth", wrapper.GetHealthAuth)
+	router.GET(baseURL+"/user/:userId", wrapper.GetUser)
 
 }
