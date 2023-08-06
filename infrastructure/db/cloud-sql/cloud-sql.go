@@ -25,6 +25,12 @@ func InitClient() {
 	}
 }
 
+func CloseClient() {
+	if db != nil {
+		db.Close()
+	}
+}
+
 func GetClient() *sql.DB {
 	if db == nil {
 		InitClient()
