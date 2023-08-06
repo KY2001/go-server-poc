@@ -25,7 +25,7 @@ func InitClient() {
 	}
 }
 
-func CloseClient()  {
+func CloseClient() {
 	db.Close()
 }
 
