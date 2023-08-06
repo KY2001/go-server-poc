@@ -26,7 +26,9 @@ func InitClient() {
 }
 
 func CloseClient() {
-	db.Close()
+	if db != nil {
+		db.Close()
+	}
 }
 
 func GetClient() *sql.DB {
