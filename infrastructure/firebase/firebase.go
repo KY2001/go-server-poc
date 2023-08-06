@@ -13,6 +13,7 @@ var (
 	client *auth.Client
 )
 
+// ClientのCloseは必要ないっぽい
 func InitClient() {
 	var err error
 	app, err = firebase.NewApp(context.Background(), nil)

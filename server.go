@@ -35,6 +35,7 @@ func main() {
 	// Initialize Clients
 	cloudsql.InitClient()
 	firebase.InitClient()
+	defer cloudsql.CloseClient()
 
 	api := e.Group("")
 	handlers := handler.NewHandlers()
